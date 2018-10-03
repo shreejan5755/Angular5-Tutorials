@@ -7,15 +7,21 @@
     <div class=" panel-body">
 
       <!-- Full Name -->
-      <div class=" form-group">
-        <label for="fullName">Full Name</label>
-        <input required id="fullName" name="fullName" [(ngModel)]="fullName" type="text" class=" form-control">
+      <!-- Using class binding to add the has-error class to the full name div -->
+      <div class=" form-group" [class.has-error]="fullNameControl.invalid && fullNameControl.touched"
+      [class.has-success]="fullNameControl.valid">
+        <label for="fullName" class=" control-label">Full Name</label>
+        <input required id="fullName" required name="fullName" [(ngModel)]="fullName" type="text" class=" form-control" #fullNameControl ="ngModel">
+        <span class=" help-block" *ngIf="fullNameControl.invalid && fullNameControl.touched">FullName is required</span>
       </div>
+<!-- 
+      <div>touched: {{fullNameControl.touched}}</div>
+      <div>untouched: {{fullNameControl.untouched}}</div> -->
 
       <!-- Email -->
       <div class=" form-group">
         <label for="email">Email</label>
-        <input id="email" name="email" [(ngModel)]="email" type="text" class=" form-control">
+        <input id="email" required name="email" [(ngModel)]="email" type="text" class=" form-control">
       </div>
 
       <!-- Phone Number -->
@@ -79,18 +85,18 @@
       <div class="row">
         <div class=" form-group col-md-3">
           <label for="dateOfBirth">Date of Birth</label>
-          <input id="dateOfBirth" name="dateOfBirth" [(ngModel)]="dateOfBirth" type="text" bsDatepicker [bsConfig]="datePickerConfig" placement="right"
-            class=" form-control">
+          <input id="dateOfBirth" name="dateOfBirth" [(ngModel)]="dateOfBirth" type="text" bsDatepicker [bsConfig]="datePickerConfig"
+            placement="right" class=" form-control">
         </div>
       </div>
 
-       <!-- Photo Path -->
-       <div class=" form-group">
+      <!-- Photo Path -->
+      <div class=" form-group">
         <label for="photoPath">Photo Path</label>
         <input id="photoPath" name="photoPath" [(ngModel)]="photoPath" type="text" class=" form-control">
       </div>
-       <!-- Show Preview Button -->
-      <div (click)="togglePhotoPreview()" class=" form-group" >
+      <!-- Show Preview Button -->
+      <div (click)="togglePhotoPreview()" class=" form-group">
         <button type="button" class="btn btn-primary">{{previewPhoto ? "Hide " : "Show "}}Preview </button>
       </div>
       <div class=" form-group">
@@ -101,7 +107,7 @@
 
 
     <div class="panel-footer">
-      <button type="submit" class=" btn btn-primary">Save</button>
+      <button type="submit" class=" btn btn-primary" [disabled]="employeeForm.invalid">Save</button>
     </div>
   </div>
 </form>
