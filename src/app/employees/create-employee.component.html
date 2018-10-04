@@ -1,4 +1,4 @@
-<form #employeeForm="ngForm" (ngSubmit)="saveEmployee(employeeForm)">
+<form #employeeForm="ngForm" (ngSubmit)="saveEmployee(employee)">
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h3 class="panel-title">Create Employee</h3>
@@ -8,26 +8,27 @@
 
       <!-- Full Name -->
       <!-- Using class binding to add the has-error class to the full name div -->
-      <div class=" form-group" [class.has-error]="fullNameControl.invalid && fullNameControl.touched"
-      [class.has-success]="fullNameControl.valid">
-        <label for="fullName" class=" control-label">Full Name</label>
-        <input required id="fullName" required name="fullName" [(ngModel)]="fullName" type="text" class=" form-control" #fullNameControl ="ngModel">
-        <span class=" help-block" *ngIf="fullNameControl.invalid && fullNameControl.touched">FullName is required</span>
+      <div class=" form-group" [class.has-error]="name.invalid && name.touched"
+      [class.has-success]="name.valid">
+        <label for="name" class=" control-label">Full Name</label>
+        <input required id="name" name="name" [(ngModel)]="employee.name" type="text" class=" form-control" #name ="ngModel">
+        <span class=" help-block" *ngIf="name.invalid && name.touched">Name is required</span>
       </div>
 <!-- 
       <div>touched: {{fullNameControl.touched}}</div>
       <div>untouched: {{fullNameControl.untouched}}</div> -->
 
       <!-- Email -->
-      <div class=" form-group">
-        <label for="email">Email</label>
-        <input id="email" required name="email" [(ngModel)]="email" type="text" class=" form-control">
+      <div class=" form-group" [class.has-error]= "emailControl.invalid && emailControl.touched" [class.has-success]="emailControl.valid">
+        <label for="email" class="control-label">Email</label>
+        <input id="email" required name="email" [(ngModel)]="employee.email" type="text" class=" form-control" #emailControl = "ngModel">
+        <span class=" help-block" *ngIf="emailControl.invalid && emailControl.touched">Email is required</span>
       </div>
 
       <!-- Phone Number -->
       <div class=" form-group">
         <label for="phoneNumber">Phone Number</label>
-        <input id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" type="text" class=" form-control">
+        <input id="phoneNumber" name="phoneNumber" [(ngModel)]="employee.phoneNumber" type="text" class=" form-control">
       </div>
 
       <!-- Contact Preference -->
@@ -35,11 +36,11 @@
         <label>Contact Preference</label>
         <div class=" form-control">
           <label class="radio-inline">
-            <input type="radio" value="email" name="contactPreference" [(ngModel)]="contactPreference">
+            <input type="radio" value="email" name="contactPreference" [(ngModel)]="employee.contactPreference">
             Email
           </label>
           <label class="radio-inline">
-            <input type="radio" value="phone" name="contactPreference" [(ngModel)]="contactPreference">
+            <input type="radio" value="phone" name="contactPreference" [(ngModel)]="employee.contactPreference">
             Phone
           </label>
         </div>
@@ -50,11 +51,11 @@
         <label>Gender</label>
         <div class=" form-control">
           <label class="radio-inline">
-            <input type="radio" value="male" name="gender" [(ngModel)]="gender">
+            <input type="radio" value="male" name="gender" [(ngModel)]="employee.gender">
             Male
           </label>
           <label class="radio-inline">
-            <input type="radio" value="female" name="gender" [(ngModel)]="gender">
+            <input type="radio" value="female" name="gender" [(ngModel)]="employee.gender">
             Female
           </label>
         </div>
@@ -64,7 +65,7 @@
       <div class=" form-group">
         <div class=" form-control">
           <label class="checkbox-inline">
-            <input type="checkbox" name="isActive" [(ngModel)]="isActive"> Is Active
+            <input type="checkbox" name="isActive" [(ngModel)]="employee.isActive"> Is Active
           </label>
         </div>
       </div>
@@ -74,7 +75,7 @@
         <label for="department">
           Department
         </label>
-        <select id="department" name="department" [(ngModel)]="department" class=" form-control">
+        <select id="department" name="department" [(ngModel)]="employee.department" class=" form-control">
           <option *ngFor="let dept of departments" [value]="dept.id">
             {{dept.name}}
           </option>
@@ -85,7 +86,7 @@
       <div class="row">
         <div class=" form-group col-md-3">
           <label for="dateOfBirth">Date of Birth</label>
-          <input id="dateOfBirth" name="dateOfBirth" [(ngModel)]="dateOfBirth" type="text" bsDatepicker [bsConfig]="datePickerConfig"
+          <input id="dateOfBirth" name="dateOfBirth" [(ngModel)]="employee.dateOfBirth" type="text" bsDatepicker [bsConfig]="datePickerConfig"
             placement="right" class=" form-control">
         </div>
       </div>
@@ -93,14 +94,15 @@
       <!-- Photo Path -->
       <div class=" form-group">
         <label for="photoPath">Photo Path</label>
-        <input id="photoPath" name="photoPath" [(ngModel)]="photoPath" type="text" class=" form-control">
+        <input id="photoPath" name="photoPath" [(ngModel)]="employee.photoPath" type="text" class=" form-control">
       </div>
       <!-- Show Preview Button -->
       <div (click)="togglePhotoPreview()" class=" form-group">
         <button type="button" class="btn btn-primary">{{previewPhoto ? "Hide " : "Show "}}Preview </button>
       </div>
+      <!-- Space to show the picture -->
       <div class=" form-group">
-        <img [src]="photoPath" height="200" width="200" *ngIf="previewPhoto">
+        <img [src]="employee.photoPath" height="200" width="200" *ngIf="previewPhoto">
       </div>
 
     </div>
@@ -113,3 +115,6 @@
 </form>
 
 Angular Generated Form Model: {{employeeForm.value | json}}
+<br/>
+<br/>
+Our Employee Model: {{employee | json}}
