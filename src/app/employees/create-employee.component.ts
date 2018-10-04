@@ -24,7 +24,9 @@ export class CreateEmployeeComponent implements OnInit {
     dataOfBirth: null,
     department: null,
     isActive: null,
-    photoPath: null
+    photoPath: null,
+   // password: null,
+   // confirmPassword: null
   };
 
   //items for the dropdown list
