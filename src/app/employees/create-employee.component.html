@@ -76,12 +76,13 @@
       </div>
 
       <!-- Is Active -->
-      <div class=" form-group">
+      <div class=" form-group" [class.has-error]="isActive.touched && isActive.invalid">
         <div class=" form-control">
-          <label class="checkbox-inline">
-            <input type="checkbox" name="isActive" [(ngModel)]="employee.isActive"> Is Active
+          <label class="checkbox-inline" class="control-label">
+            <input required type="checkbox" name="isActive" [(ngModel)]="employee.isActive" #isActive="ngModel"> Is Active
           </label>
         </div>
+        <span class="help-block" *ngIf="isActive.touched && isActive.errors?.required">Is Active is required</span>
       </div>
 
       <!-- Department dropDown -->
