@@ -19,10 +19,14 @@
       <div>untouched: {{fullNameControl.untouched}}</div> -->
 
       <!-- Email -->
-      <div class=" form-group" [class.has-error]= "emailControl.invalid && emailControl.touched" [class.has-success]="emailControl.valid">
+      <div class=" form-group" [class.has-error]= "email.invalid && email.touched" [class.has-success]="email.valid">
         <label for="email" class="control-label">Email</label>
-        <input id="email" required name="email" [(ngModel)]="employee.email" type="text" class=" form-control" #emailControl = "ngModel">
-        <span class=" help-block" *ngIf="emailControl.invalid && emailControl.touched">Email is required</span>
+        <!-- in case we use angular 5 or lower we have to do following [email]= "employee.email!==''" so that both required and email dont validate the same empty condition and display both error message -->
+        <input required email id="email" name="email" [(ngModel)]="employee.email" type="text" class=" form-control" #email = "ngModel">
+        <!-- without using angular safe navigation operator (?)  we have to check two conditions -->
+        <span class=" help-block" *ngIf="email.errors && email.errors.required && email.touched">Email is required</span>
+        <!-- using angular safe navigation operator (?) -->
+        <span class=" help-block" *ngIf="email.errors?.email && email.touched">Email is invalid</span>
       </div>
 
       <!-- Phone Number -->
