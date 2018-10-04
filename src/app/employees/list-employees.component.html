@@ -1,3 +1,9 @@
-<div *ngFor = "let employee of employees">
-    <app-display-employee [employee] = "employee"></app-display-employee>
-</div>
+<!-- <div *ngFor = "let employee of employees"> -->
+    <!-- passing employee using input property to the child component -->
+    <!-- <app-display-employee [employee] = "employee"></app-display-employee>
+</div> -->
+<button (click) = "nextEmployee()" class="btn btn-primary">
+  View Next Employee
+</button>
+<br/><br/>
+<app-display-employee [employee] = "employeeToDisplay"></app-display-employee>
