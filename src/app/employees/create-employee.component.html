@@ -128,25 +128,25 @@
       </div>
 
       <!-- password group so as to apply some common styles or code to both the password and confirm password group -->
-      <div ngModelGroup="passwordGroup" [class.has-error]="confirmPassword.touched && confirmPassword.invalid && !confirmPassword.errors?.required" >
+      <div ngModelGroup="passwordGroup" appConfirmEqualValidator #passwordGroup = "ngModelGroup" 
+      [class.has-error]="passwordGroup.errors?.notEqual && !confirmPassword.errors?.required" >
 
         <!-- Password -->
         <div class=" form-group" [class.has-error]="password.touched && password.invalid">
           <label for="password" class=" control-label">Password</label>
-          <input name="password" required type="text" class=" form-control" [(ngModel)]="employee.password" #password="ngModel"
-          (input)="confirmPassword.control.updateValueAndValidity()" >
+          <input name="password" required type="text" class=" form-control" [(ngModel)]="employee.password" #password="ngModel">
           <span class=" help-block" *ngIf="password.touched && password.errors?.required">Password is required</span>
         </div>
 
         <!-- Confirm Password -->
         <div class=" form-group" [class.has-error]="confirmPassword.touched && confirmPassword.invalid">
           <label for="confirmPassword" class=" control-label">Confirm Password</label>
-          <input name="confirmPassword" appConfirmEqualValidator="password" required type="text" class=" form-control"
+          <input name="confirmPassword"  required type="text" class=" form-control"
             [(ngModel)]="employee.confirmPassword" #confirmPassword="ngModel">
           <span class=" help-block" *ngIf="confirmPassword.touched && confirmPassword.errors?.required">Password is
             required</span>
           <!-- block for the cross field validation -->
-          <span class=" help-block" *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual && !confirmPassword.errors?.required">Password
+          <span class=" help-block" *ngIf="confirmPassword.touched && passwordGroup.errors?.notEqual && !confirmPassword.errors?.required">Password
             and Confirm Password does not match</span>
         </div>
 
