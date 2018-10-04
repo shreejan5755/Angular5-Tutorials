@@ -19,7 +19,10 @@
                             : {{employee.gender}}
                         </div>
                     </div>
+
+                   
                     <div class="row">
+                       <!-- date of birth -->
                         <div class="col-xs-6">
                           Date of Birth
                         </div>
@@ -27,6 +30,8 @@
                           : {{employee.dataOfBirth | date}}
                         </div>
                       </div>
+
+                      <!-- Contact Preference -->
                       <div class="row">
                         <div class="col-xs-6">
                           Contact Preference
@@ -35,6 +40,8 @@
                           : {{employee.contactPreference}}
                         </div>
                       </div>
+
+                      <!-- Phone Number -->
                       <div class="row">
                         <div class="col-xs-6">
                           Phone
@@ -43,6 +50,8 @@
                           : {{employee.phoneNumber}}
                         </div>
                       </div>
+
+                      <!-- Email -->
                       <div class="row">
                         <div class="col-xs-6">
                           Email
@@ -51,14 +60,23 @@
                           : {{employee.email}}
                         </div>
                       </div>
+
+                      <!-- Department -->
                       <div class="row">
                         <div class="col-xs-6">
                           Department
                         </div>
-                        <div class="col-xs-6">
-                          : {{employee.department}}
+                        <div class="col-xs-6" [ngSwitch] = "employee.department">
+                          : 
+                          <span *ngSwitchCase = "1">Help Desk</span>
+                          <span *ngSwitchCase = "2">HR</span>
+                          <span *ngSwitchCase = "3">IT</span>
+                          <span *ngSwitchCase = "4">Payroll</span>
+                          <span *ngSwitchDefault>N/A</span>
                         </div>
                       </div>
+
+                      <!-- Is Active -->
                       <div class="row">
                         <div class="col-xs-6">
                           Is Active
