@@ -1,8 +1,10 @@
+import { EmployeeService } from './employee.service';
 import { Employee } from './../models/employee.model';
 import { Department } from './../models/department.model';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { Router } from '@angular/router';
 
 
 
@@ -54,7 +56,7 @@ export class CreateEmployeeComponent implements OnInit {
   //initializing a previewPhoto property to false so that initially the phooto isn't displayed
   previewPhoto: boolean = false;
 
-  constructor() {
+  constructor(private _employeeService: EmployeeService, private _router: Router) {
     //Object.assign method assign from one or more source object to destination object
     // Object.assign( destination , source)
     // defining that containerClass so that only that can be assigned not other preperty
@@ -74,10 +76,12 @@ export class CreateEmployeeComponent implements OnInit {
   dateOfBirth: Date = new Date(2018, 0, 30);
 
   ngOnInit() {
+
   }
 
 
-  saveEmployee(newEmployee: Employee): void {
-    console.log(newEmployee);
+  saveEmployee(): void {
+    this._employeeService.save(this.employee);
+    this._router.navigate(['list']);
   }
 }

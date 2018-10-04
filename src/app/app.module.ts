@@ -1,3 +1,4 @@
+import { EmployeeService } from './employees/employee.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -31,7 +32,7 @@ const appRoutes: Routes = [
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
