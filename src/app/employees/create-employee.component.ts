@@ -83,8 +83,13 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
 
+  //save method to save the data
   saveEmployee(): void {
     this._employeeService.save(this.employee);
+    this.createEmployeeForm.reset({
+      name: 'Test',
+      contactPreference: 'phone'
+    });
     this._router.navigate(['list']);
   }
 }
