@@ -1,6 +1,5 @@
 import { Employee } from './../models/employee.model';
-import { Input} from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -10,45 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayEmployeeComponent implements OnInit {
 
-  @Input() employee:Employee;
+  @Input() employee: Employee;
 
-  //@Input() employeeId: number;
-
-  //constructing a private field to get and set employee
-  //private _employee: Employee;
-
-  //constructing the getter and setter for the input
-  // @Input()
-  // set employee(val: Employee) {
-  //   this._employee = val;
-  // }
-  // get employee(): Employee {
-  //   return this._employee;
-  // }
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //  for( const propName of Object.keys(changes)){
-  //    //these keys can be used to track the changes that happened
-  //    const change = changes[propName];
-  //    const from = JSON.stringify(change.previousValue);
-  //    const to = JSON.stringify(change.currentValue);
-
-  //    console.log(propName + ' changed from '+ from + ' to '+ to);
-  //  }
-    
-  //}
+  // Creating output property to pass the employee name from child to parent component.
+  // Child passes data to parent thorugh an event so the type of output property is defined as EventEmitter
+  @Output() notify: EventEmitter<Employee> = new EventEmitter<Employee>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  // ngOnChanges(changes: SimpleChanges){
-  //   const previousEmployee = <Employee>changes.employee.previousValue;
-  //   const currentEmployee = <Employee>changes.employee.currentValue;
-
-  //   console.log('Previous : '+ (previousEmployee ? previousEmployee.name : 'NULL'));
-  //   console.log('Current : '+ currentEmployee.name);
-  // }
+  handleClick() {
+    this.notify.emit(this.employee);
+  }
 
 }

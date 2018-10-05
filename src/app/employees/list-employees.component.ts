@@ -8,30 +8,20 @@ import { EmployeeService } from './employee.service';
   styleUrls: ['./list-employees.component.css']
 })
 export class ListEmployeesComponent implements OnInit {
+  
   employees: Employee[];
-
-  // variable to hold the current employee data
-  //employeeToDisplay: Employee;
-
-  // private variable to hold the current employee index
-  //private arrayIndex = 1;
-
+  //to keep track of the data from child
+  dataFromChild: Employee;
+  
   constructor( private _employeeService: EmployeeService) { }
 
   ngOnInit() {
-    this.employees = this._employeeService.getEmployees();
-    //this.employeeToDisplay = this.employees[0];
+    this.employees = this._employeeService.getEmployees();    
   }
 
-  // nextEmployee(): void{
-  //   if(this.arrayIndex <= 2){
-  //     this.employeeToDisplay = this.employees[this.arrayIndex];
-  //     this.arrayIndex++;
-  //   }
-  //   else{
-  //     this.employeeToDisplay = this.employees[0];
-  //     this.arrayIndex = 1;
-  //   }
-  // }
+  // method to handle the output event emitted by the child component
+  handleNotify(eventData: Employee) {
+    this.dataFromChild = eventData;
+  } 
 
 }
