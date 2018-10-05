@@ -1,3 +1,4 @@
+import { CanDeactivate } from '@angular/router';
 import { EmployeeService } from './employees/employee.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -12,10 +13,15 @@ import { CreateEmployeeComponent } from './employees/create-employee.component';
 import { SelectRequiredValidatorDirective } from './shared/select-required-validator.directive';
 import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator,directive';
 import { DisplayEmployeeComponent } from './employees/display-employee.component';
+import { CreateEmployeeCanDeativateGuardService } from './employees/create-employee-can-deactivate-guard.service';
 
 const appRoutes: Routes = [
   { path: 'list', component: ListEmployeesComponent },
-  { path: 'create', component: CreateEmployeeComponent },
+  { 
+    path: 'create',
+    component: CreateEmployeeComponent,
+    canDeactivate: [CreateEmployeeCanDeativateGuardService]
+  },
   { path: '', redirectTo: '/list', pathMatch: 'full' }
 ];
 
@@ -34,7 +40,7 @@ const appRoutes: Routes = [
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [EmployeeService],
+  providers: [EmployeeService, CreateEmployeeCanDeativateGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
