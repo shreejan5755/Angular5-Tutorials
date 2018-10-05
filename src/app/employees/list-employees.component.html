@@ -1,5 +1,6 @@
-
 <div *ngFor="let employee of employees">
+  <div (click)="onClick(employee.id)" class="pointerCursor">
     <!-- passing employee using input property to the child component -->
     <app-display-employee [employee]="employee"></app-display-employee>
+  </div>
 </div>
