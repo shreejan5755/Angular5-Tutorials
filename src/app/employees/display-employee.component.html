@@ -1,4 +1,4 @@
-<div class="panel panel-primary" [class.panel-success]="selectedEmployeeId === employee.id">
+<div class="panel panel-primary" [class.panel-success]="selectedEmployeeId === employee">
   <div class="panel-heading">
     <h3 class="panel-title">{{employee.name}}</h3>
   </div>
@@ -27,7 +27,7 @@
               Date of Birth
             </div>
             <div class="col-xs-6">
-              : {{employee.dataOfBirth | date}}
+              : {{employee.dataOfBirth}}
             </div>
           </div>
 
