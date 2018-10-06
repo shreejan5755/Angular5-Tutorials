@@ -1,3 +1,4 @@
+import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 import { CanDeactivate } from '@angular/router';
 import { EmployeeService } from './employees/employee.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     SelectRequiredValidatorDirective,
     ConfirmEqualValidatorDirective,
     DisplayEmployeeComponent,
-    EmployeeDetailsComponent
+    EmployeeDetailsComponent,
+    EmployeeFilterPipe
   ],
   imports: [
     BrowserModule,
