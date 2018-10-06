@@ -35,11 +35,20 @@ export class ListEmployeesComponent implements OnInit {
   ngOnInit() {
     this.employees = this._employeeService.getEmployees(); 
     this.filteredEmployees = this.employees;   
-    if(this._route.snapshot.queryParamMap.has('searchTerm')){
-      this.searchTerm = this._route.snapshot.queryParamMap.get('searchTerm');
-    }else{
-      this.filteredEmployees = this.employees;
-    }
+    // if(this._route.snapshot.queryParamMap.has('searchTerm')){
+    //   this.searchTerm = this._route.snapshot.queryParamMap.get('searchTerm');
+    // }else{
+    //   this.filteredEmployees = this.employees;
+    // }
+
+    //using observable
+    this._route.queryParamMap.subscribe((queryParams) => {
+      if(queryParams.has('searchTerm')){
+        this.searchTerm = queryParams.get('searchTerm');
+      }else{
+        this.filteredEmployees = this.employees;
+      }
+    });
     
   }
 
