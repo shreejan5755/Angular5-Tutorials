@@ -20,5 +20,6 @@ export class DisplayEmployeeComponent implements OnInit {
     this.selectedEmployeeId = +this._route.snapshot.paramMap.get('id');
   }
 
+ 
   
 }

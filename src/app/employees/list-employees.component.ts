@@ -23,4 +23,8 @@ export class ListEmployeesComponent implements OnInit {
     this._router.navigate(['/employees', employeeId]);
   }
 
+  changeEmployeeName(){
+    this.employees[0].name = 'Jordan';
+  }
+
 }
