@@ -6,7 +6,7 @@
   <button (click)="changeEmployeeName()" class=" btn btn-primary">Change Employee Name</button>
 </div>
 
-<div *ngFor="let employee of employees | employeeFilter:searchTerm">
+<div *ngFor="let employee of filteredEmployees">
   <div (click)="onClick(employee.id)" class="pointerCursor">
     <!-- passing employee using input property to the child component -->
     <app-display-employee [employee]="employee"></app-display-employee>
