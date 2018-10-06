@@ -19,6 +19,7 @@ import { CreateEmployeeCanDeativateGuardService } from './employees/create-emplo
 import { EmployeeDetailsComponent } from './employees/employee-details.component';
 import { EmployeeListResolverService } from './employees/employee-list-resolver.service';
 import { PageNotFoundComponent } from './page-not-found.component';
+import { AccordionComponent } from './shared/accordion.component';
 
 const appRoutes: Routes = [
   { 
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
     DisplayEmployeeComponent,
     EmployeeDetailsComponent,
     EmployeeFilterPipe,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AccordionComponent
   ],
   imports: [
     BrowserModule,

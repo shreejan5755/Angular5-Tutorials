@@ -19,8 +19,7 @@ export class DisplayEmployeeComponent implements OnInit {
   confirmDelete = false;
 
 
-  //creating a prperty to keep in track the accordian type functionlity
-  panelExpanded = true;
+  
 
 
   private selectedEmployeeId: number;
