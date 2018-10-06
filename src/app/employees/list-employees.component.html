@@ -4,5 +4,5 @@
 
 <div *ngFor="let employee of filteredEmployees">
   <!-- passing employee using input property to the child component -->
-  <app-display-employee [employee]="employee" [searchTerm] = "searchTerm"></app-display-employee>
+  <app-display-employee [employee]="employee" [searchTerm] = "searchTerm" (notifyDelete)="onDeleteNotification($event)" >  </app-display-employee>
 </div>

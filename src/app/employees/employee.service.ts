@@ -2,6 +2,7 @@ import { Observable, of } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { Employee } from "../models/employee.model";
 import { delay } from 'rxjs/operators'
+import { NumberValueAccessor } from '@angular/forms/src/directives';
 
 @Injectable()
 export class EmployeeService {
@@ -65,6 +66,15 @@ export class EmployeeService {
             const foundIndex = this.listEmployees.findIndex(e => e.id === employee.id);
             // storing the new values to the employee object in that index
             this.listEmployees[foundIndex] = employee;
+        }
+    }
+
+
+    //delete method
+    deleteEmployee(id: number){
+        const i = this.listEmployees.findIndex(e => e.id === id);
+        if(i !== -1){
+            this.listEmployees.splice(i,1);
         }
     }
 
