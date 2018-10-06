@@ -12,7 +12,7 @@ export class DisplayEmployeeComponent implements OnInit {
 
   @Input() employee: Employee;
   @Input() searchTerm: string;
-  
+
   private selectedEmployeeId: number;
   
 
@@ -25,6 +25,12 @@ export class DisplayEmployeeComponent implements OnInit {
   viewEmployee(){
     this._router.navigate(['/employees', this.employee.id], {
       queryParams: { 'searchTerm': this.searchTerm}
+    });
+  }
+
+
+  editEmployee(){
+    this._router.navigate(['/edit', this.employee.id], {      
     });
   }
   

@@ -1,7 +1,7 @@
-import { Observable, of  } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { Employee } from "../models/employee.model";
-import { delay} from 'rxjs/operators'
+import { delay } from 'rxjs/operators'
 
 @Injectable()
 export class EmployeeService {
@@ -42,18 +42,30 @@ export class EmployeeService {
     ];
 
     //method to get the data of all employees to display 
-    getEmployees(): Observable<Employee[]>{
+    getEmployees(): Observable<Employee[]> {
         return of(this.listEmployees).pipe(delay(2000));
     }
 
     //method to get Employee by id
-    getEmployee(id: number): Employee{
+    getEmployee(id: number): Employee {
         return this.listEmployees.find(e => e.id === id);
     }
 
     //method to save the data of the created employee
-    save(employee: Employee){
-        this.listEmployees.push(employee);
+    save(employee: Employee) {
+        if (employee.id === null) {
+            //finding the maximum id till now so that we could assign a new id to the user
+            const maxId = this.listEmployees.reduce(function (e1, e2) {
+                return (e1.id > e2.id) ? e1 : e2;
+            }).id;
+            employee.id = maxId + 1;
+            this.listEmployees.push(employee);
+        } else {
+            //finding the Id of the employee object passed for the edit
+            const foundIndex = this.listEmployees.findIndex(e => e.id === employee.id);
+            // storing the new values to the employee object in that index
+            this.listEmployees[foundIndex] = employee;
+        }
     }
 
 }

@@ -4,7 +4,7 @@ import { Department } from './../models/department.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -19,20 +19,10 @@ export class CreateEmployeeComponent implements OnInit {
   @ViewChild('employeeForm') public createEmployeeForm: NgForm;
 
   //creating a employee model type list 
-  employee: Employee = {
-    id: null,
-    name: null,
-    gender: null,
-    contactPreference: null,
-    phoneNumber: null,
-    email: null,
-    dataOfBirth: null,
-    department: null,
-    isActive: null,
-    photoPath: null,
-   // password: null,
-   // confirmPassword: null
-  };
+  employee: Employee;
+
+  //creating a property to hold the title either edit or create
+  panelTitle: string;
 
   //items for the dropdown list
   departments: Department[] = [
@@ -59,7 +49,9 @@ export class CreateEmployeeComponent implements OnInit {
   //initializing a previewPhoto property to false so that initially the phooto isn't displayed
   previewPhoto: boolean = false;
 
-  constructor(private _employeeService: EmployeeService, private _router: Router) {
+  constructor(private _employeeService: EmployeeService
+    , private _router: Router
+    , private _route: ActivatedRoute) {
     //Object.assign method assign from one or more source object to destination object
     // Object.assign( destination , source)
     // defining that containerClass so that only that can be assigned not other preperty
@@ -79,8 +71,38 @@ export class CreateEmployeeComponent implements OnInit {
   dateOfBirth: Date = new Date(2018, 0, 30);
 
   ngOnInit() {
-
+    this._route.paramMap.subscribe(parameterMap => {
+      const id = +parameterMap.get('id');
+      this.getEmployee(id);
+    });
   }
+
+  //getting employee details by Id
+  private getEmployee(id: number) {
+    if(id == 0){
+      this.employee = {        
+          id: null,
+          name: null,
+          gender: null,
+          contactPreference: null,
+          phoneNumber: null,
+          email: null,
+          dataOfBirth: null,
+          department: null,
+          isActive: null,
+          photoPath: null,        
+      };
+      //setting the panel heading to Create employee
+      this.panelTitle = "Create Employee";
+      //resetting all the form validation properties so that validation error aren't active
+      this.createEmployeeForm.reset();
+    }else{
+      //setting the panel heading to Edit employee
+      this.panelTitle = "Edit Employee";
+      this.employee = Object.assign({},this._employeeService.getEmployee(id));
+    }
+  }
+
 
 
   //save method to save the data
