@@ -1,14 +1,8 @@
 <div class=" form-group">
-  <input type = "text" class=" form-control" placeholder="Search By Name" style=" width:300px" [(ngModel)] = "searchTerm"/>
-</div>
-
-<div class=" form-group">
-  <button (click)="changeEmployeeName()" class=" btn btn-primary">Change Employee Name</button>
+  <input type="text" class=" form-control" placeholder="Search By Name" [(ngModel)]="searchTerm" />
 </div>
 
 <div *ngFor="let employee of filteredEmployees">
-  <div (click)="onClick(employee.id)" class="pointerCursor">
-    <!-- passing employee using input property to the child component -->
-    <app-display-employee [employee]="employee"></app-display-employee>
-  </div>
+  <!-- passing employee using input property to the child component -->
+  <app-display-employee [employee]="employee" [searchTerm] = "searchTerm"></app-display-employee>
 </div>
