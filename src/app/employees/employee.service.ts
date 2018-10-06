@@ -1,5 +1,7 @@
+import { Observable, of  } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { Employee } from "../models/employee.model";
+import { delay} from 'rxjs/operators'
 
 @Injectable()
 export class EmployeeService {
@@ -40,8 +42,8 @@ export class EmployeeService {
     ];
 
     //method to get the data of all employees to display 
-    getEmployees(): Employee[]{
-        return this.listEmployees;
+    getEmployees(): Observable<Employee[]>{
+        return of(this.listEmployees).pipe(delay(2000));
     }
 
     //method to get Employee by id

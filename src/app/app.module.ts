@@ -16,9 +16,14 @@ import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator
 import { DisplayEmployeeComponent } from './employees/display-employee.component';
 import { CreateEmployeeCanDeativateGuardService } from './employees/create-employee-can-deactivate-guard.service';
 import { EmployeeDetailsComponent } from './employees/employee-details.component';
+import { EmployeeListResolverService } from './employees/employee-list-resolver.service';
 
 const appRoutes: Routes = [
-  { path: 'list', component: ListEmployeesComponent },
+  { 
+    path: 'list',
+    component: ListEmployeesComponent,
+    resolve: {employeeList: EmployeeListResolverService}
+  },
   { 
     path: 'create',
     component: CreateEmployeeComponent,
@@ -45,7 +50,7 @@ const appRoutes: Routes = [
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [EmployeeService, CreateEmployeeCanDeativateGuardService],
+  providers: [EmployeeService, CreateEmployeeCanDeativateGuardService, EmployeeListResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
