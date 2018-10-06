@@ -93,7 +93,8 @@
 
     <div class=" panel-footer">
       <!-- preserved the query string parameter to retain it when we navigate back to employee list -->
-      <a class=" btn btn-primary" [routerLink]="['/list',{id:employee.id}]" queryParamsHandling="preserve">Back to List</a>
+      <a class=" btn btn-primary" [routerLink]="['/list',{id:employee.id}]" queryParamsHandling="merge" 
+      [queryParams] = "{'newParam':'newValue'}">Back to List</a>
       <button class="btn btn-primary pull-right" (click)="viewNextEmployee()">View Next Employee</button>
     </div>
   </div>

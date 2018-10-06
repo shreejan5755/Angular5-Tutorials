@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../models/employee.model';
 import { EmployeeService } from './employee.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
 
@@ -30,11 +30,17 @@ export class ListEmployeesComponent implements OnInit {
     return this.employees.filter(employee => employee.name.toLowerCase().indexOf(searchString.toLowerCase())!== -1);        
   }
   
-  constructor( private _employeeService: EmployeeService, private _router: Router) { }
+  constructor( private _employeeService: EmployeeService, private _router: Router, private _route: ActivatedRoute) { }
 
   ngOnInit() {
     this.employees = this._employeeService.getEmployees(); 
     this.filteredEmployees = this.employees;   
+    if(this._route.snapshot.queryParamMap.has('searchTerm')){
+      this.searchTerm = this._route.snapshot.queryParamMap.get('searchTerm');
+    }else{
+      this.filteredEmployees = this.employees;
+    }
+    
   }
 
   onClick(employeeId: number){
