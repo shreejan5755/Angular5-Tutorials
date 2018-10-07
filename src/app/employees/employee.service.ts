@@ -1,9 +1,10 @@
-import { Observable, of } from 'rxjs';
+import { Observable, of , throwError} from 'rxjs';
 import { Injectable } from "@angular/core";
 import { Employee } from "../models/employee.model";
-import { delay } from 'rxjs/operators'
+import { delay, catchError } from 'rxjs/operators'
 import { NumberValueAccessor } from '@angular/forms/src/directives';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+
 
 @Injectable()
 export class EmployeeService {
@@ -46,9 +47,22 @@ export class EmployeeService {
         },
     ];
 
-    //method to get the data of all employees to display 
+    //method to get the data of all employees to display from web API
     getEmployees(): Observable<Employee[]> {
-        return this.httpClient.get<Employee[]>('http://localhost:3000/employees')
+        return this.httpClient.get<Employee[]>('http://localhost:3000/employees1').pipe(catchError(this.handleError));
+    }
+
+    //error handling for the webAPI connection using HTTP client
+    private handleError(errorResponse: HttpErrorResponse){
+        //distinguishing between server and client error
+        // ErrorEvent is a client side or network error
+        if(errorResponse.error instanceof ErrorEvent){
+            console.error('Client Side Error: ', errorResponse.error.message);
+        }else{
+            console.error('Server Side Error: ', errorResponse);
+        }
+
+        return throwError('There is a problem with the service. We are notified and working on it. Please try again later.')
     }
 
     //method to get Employee by id
