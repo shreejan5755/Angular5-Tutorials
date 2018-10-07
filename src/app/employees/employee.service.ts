@@ -49,7 +49,7 @@ export class EmployeeService {
 
     //method to get the data of all employees to display from web API
     getEmployees(): Observable<Employee[]> {
-        return this.httpClient.get<Employee[]>('http://localhost:3000/employees1').pipe(catchError(this.handleError));
+        return this.httpClient.get<Employee[]>('http://localhost:3000/employees').pipe(catchError(this.handleError));
     }
 
     //error handling for the webAPI connection using HTTP client
