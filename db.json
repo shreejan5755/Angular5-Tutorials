@@ -44,18 +44,6 @@
       "department": "3",
       "isActive": true,
       "photoPath": "assets/images/mark.png"
-    },
-    {
-      "id": 5,
-      "name": "Sugan Shresth",
-      "gender": "Male",
-      "contactPreference": "Phone",
-      "phoneNumber": "4094446265",
-      "email": null,
-      "dataOfBirth": "2018-10-14T05:00:00.000Z",
-      "department": "3",
-      "isActive": true,
-      "photoPath": "assets/images/mark.png"
     }
   ]
 }

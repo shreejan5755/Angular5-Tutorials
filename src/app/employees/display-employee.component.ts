@@ -19,9 +19,6 @@ export class DisplayEmployeeComponent implements OnInit {
   confirmDelete = false;
 
 
-  
-
-
   private selectedEmployeeId: number;
   
 
@@ -49,7 +46,10 @@ export class DisplayEmployeeComponent implements OnInit {
 
   //delete method  
   deleteEmployee(){
-    this._employeeService.deleteEmployee(this.employee.id);
+    this._employeeService.deleteEmployee(this.employee.id).subscribe(
+      () => console.log(` Employee with Id = ${this.employee.id} deleted`),
+      (err) => console.log(err)
+    );
     this.notifyDelete.emit(this.employee.id);
   }
 }
