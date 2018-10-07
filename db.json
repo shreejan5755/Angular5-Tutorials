@@ -32,6 +32,18 @@
       "department": "3",
       "isActive": false,
       "photoPath": "assets/images/john.png"
+    },
+    {
+      "id": 4,
+      "name": "Suyash",
+      "gender": "Male",
+      "contactPreference": "Email",
+      "phoneNumber": "4094442125",
+      "email": "suyash@gmail.com",
+      "dataOfBirth": "2018-02-11T06:00:00.000Z",
+      "department": "3",
+      "isActive": true,
+      "photoPath": "assets/images/mark.png"
     }
   ]
 }

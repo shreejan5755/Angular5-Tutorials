@@ -24,18 +24,3 @@ export class EmployeeListResolverService implements Resolve<ResolvedEmployeeList
 }
 
 
-// 67. Second way to resolve the resolver error without creating a new 
-// The resolver returns a union type - either an Employee[] or string
-// Employee[]  will be returned if the resolver completes successfully
-// else the string error message will be returned
-// export class EmployeeListResolverService implements Resolve<Employee[] | string> {
-//     constructor(private _employeeService: EmployeeService) {
-//     }
-
-//     // The return type of the resolve() method matches with the above
-//     // Resolve interface signtaure
-//     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Employee[] | string> {
-//         return this._employeeService.getEmployees()
-//             .pipe(catchError((err: string) => Observable.of(err)));
-//     }
-// }

@@ -79,27 +79,27 @@ export class CreateEmployeeComponent implements OnInit {
 
   //getting employee details by Id
   private getEmployee(id: number) {
-    if(id == 0){
-      this.employee = {        
-          id: null,
-          name: null,
-          gender: null,
-          contactPreference: null,
-          phoneNumber: null,
-          email: null,
-          dataOfBirth: null,
-          department: null,
-          isActive: null,
-          photoPath: null,        
+    if (id == 0) {
+      this.employee = {
+        id: null,
+        name: null,
+        gender: null,
+        contactPreference: null,
+        phoneNumber: null,
+        email: null,
+        dataOfBirth: null,
+        department: null,
+        isActive: null,
+        photoPath: null,
       };
       //setting the panel heading to Create employee
       this.panelTitle = "Create Employee";
       //resetting all the form validation properties so that validation error aren't active
       this.createEmployeeForm.reset();
-    }else{
+    } else {
       //setting the panel heading to Edit employee
       this.panelTitle = "Edit Employee";
-      this.employee = Object.assign({},this._employeeService.getEmployee(id));
+      this.employee = Object.assign({}, this._employeeService.getEmployee(id));
     }
   }
 
@@ -107,10 +107,13 @@ export class CreateEmployeeComponent implements OnInit {
 
   //save method to save the data
   saveEmployee(): void {
-    //using object assign method to create a copy of the object
-    const newEmployee: Employee = Object.assign({}, this.employee);
-    this._employeeService.save(newEmployee)
-    this.createEmployeeForm.reset();
-    this._router.navigate(['list']);
+    this._employeeService.save(this.employee).subscribe(
+      (data: Employee) => {
+        console.log(data);
+        this.createEmployeeForm.reset();
+        this._router.navigate(['list']);
+      },(error: any) => console.log(error)
+    );
+
   }
 }
