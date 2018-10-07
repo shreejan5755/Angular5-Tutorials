@@ -24,13 +24,13 @@
     },
     {
       "id": 3,
-      "name": "John",
+      "name": "Harry",
       "gender": "Male",
       "contactPreference": "Phone",
       "phoneNumber": 5432978640,
       "dataOfBirth": "1976/12/25",
       "department": "3",
-      "isActive": false,
+      "isActive": true,
       "photoPath": "assets/images/john.png"
     },
     {
@@ -41,6 +41,18 @@
       "phoneNumber": "4094442125",
       "email": "suyash@gmail.com",
       "dataOfBirth": "2018-02-11T06:00:00.000Z",
+      "department": "3",
+      "isActive": true,
+      "photoPath": "assets/images/mark.png"
+    },
+    {
+      "id": 5,
+      "name": "Sugan Shresth",
+      "gender": "Male",
+      "contactPreference": "Phone",
+      "phoneNumber": "4094446265",
+      "email": null,
+      "dataOfBirth": "2018-10-14T05:00:00.000Z",
       "department": "3",
       "isActive": true,
       "photoPath": "assets/images/mark.png"

@@ -99,7 +99,7 @@ export class CreateEmployeeComponent implements OnInit {
     } else {
       //setting the panel heading to Edit employee
       this.panelTitle = "Edit Employee";
-      this.employee = Object.assign({}, this._employeeService.getEmployee(id));
+      this._employeeService.getEmployee(id).subscribe((employee) => this.employee = employee, (err: any) => console.log(err));
     }
   }
 
@@ -107,13 +107,23 @@ export class CreateEmployeeComponent implements OnInit {
 
   //save method to save the data
   saveEmployee(): void {
-    this._employeeService.save(this.employee).subscribe(
-      (data: Employee) => {
-        console.log(data);
-        this.createEmployeeForm.reset();
-        this._router.navigate(['list']);
-      },(error: any) => console.log(error)
-    );
-
+    if (this.employee.id == null) {
+      this._employeeService.addEmployee(this.employee).subscribe(
+        (data: Employee) => {
+          console.log(data);
+          this.createEmployeeForm.reset();
+          this._router.navigate(['list']);
+        }, (error: any) => console.log(error)
+      );
+    }
+    else{
+      this._employeeService.updateEmployee(this.employee).subscribe(
+        () => {
+          this.createEmployeeForm.reset();
+          this._router.navigate(['list']);
+        }, (error: any) => console.log(error)
+      );
+    }
   }
+
 }

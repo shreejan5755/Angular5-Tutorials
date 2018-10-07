@@ -1,4 +1,4 @@
-import { Observable, of , throwError} from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { Employee } from "../models/employee.model";
 import { delay, catchError } from 'rxjs/operators'
@@ -9,7 +9,10 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 @Injectable()
 export class EmployeeService {
 
-    constructor(private httpClient: HttpClient){}
+    //keeping the base url of the web api in a variable
+    baseUrl = 'http://localhost:3000/employees';
+
+    constructor(private httpClient: HttpClient) { }
 
     private listEmployees: Employee[] = [
         {
@@ -49,16 +52,16 @@ export class EmployeeService {
 
     //method to get the data of all employees to display from web API
     getEmployees(): Observable<Employee[]> {
-        return this.httpClient.get<Employee[]>('http://localhost:3000/employees').pipe(catchError(this.handleError));
+        return this.httpClient.get<Employee[]>(this.baseUrl).pipe(catchError(this.handleError));
     }
 
     //error handling for the webAPI connection using HTTP client
-    private handleError(errorResponse: HttpErrorResponse){
+    private handleError(errorResponse: HttpErrorResponse) {
         //distinguishing between server and client error
         // ErrorEvent is a client side or network error
-        if(errorResponse.error instanceof ErrorEvent){
+        if (errorResponse.error instanceof ErrorEvent) {
             console.error('Client Side Error: ', errorResponse.error.message);
-        }else{
+        } else {
             console.error('Server Side Error: ', errorResponse);
         }
 
@@ -66,33 +69,36 @@ export class EmployeeService {
     }
 
     //method to get Employee by id
-    getEmployee(id: number): Employee {
-        return this.listEmployees.find(e => e.id === id);
+    getEmployee(id: number): Observable<Employee> {
+        return this.httpClient.get<Employee>(`${this.baseUrl}/${id}`).pipe(catchError(this.handleError));
     }
 
-    //method to save the data of the created employee
-    save(employee: Employee): Observable<Employee> {
-        if (employee.id === null) {  
-            // post(uri, data to post, Content-Type http header )
-            return this.httpClient.post<Employee>('http://localhost:3000/employees',employee,{
-                headers: new HttpHeaders({
-                    'Content-Type': 'application/json'
-                })
-            }).pipe(catchError(this.handleError));                  
-        } else {
-            //finding the Id of the employee object passed for the edit
-            const foundIndex = this.listEmployees.findIndex(e => e.id === employee.id);
-            // storing the new values to the employee object in that index
-            this.listEmployees[foundIndex] = employee;
-        }
+    //method to add the data of the new employee
+    addEmployee(employee: Employee): Observable<Employee> {
+        // post(uri, data to post, Content-Type http header )
+        return this.httpClient.post<Employee>(this.baseUrl, employee, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        }).pipe(catchError(this.handleError));
+    }
+
+    //update method
+    updateEmployee(employee: Employee): Observable<void> {
+        // put(uri, data to post, Content-Type http header )
+        return this.httpClient.put<void>(`${this.baseUrl}/${employee.id}`, employee, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        }).pipe(catchError(this.handleError));
     }
 
 
     //delete method
-    deleteEmployee(id: number){
+    deleteEmployee(id: number) {
         const i = this.listEmployees.findIndex(e => e.id === id);
-        if(i !== -1){
-            this.listEmployees.splice(i,1);
+        if (i !== -1) {
+            this.listEmployees.splice(i, 1);
         }
     }
 
